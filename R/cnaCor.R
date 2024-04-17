@@ -70,7 +70,7 @@ cnaCor = function(cna,
     }
 
     if (is.character(samples)) {
-        samples = scalop::split_by_sample_names(colnames(cna), samples = samples)
+        samples = split_by_sample_names(colnames(cna), samples = samples)
         samples = samples[lengths(samples) != 0]
     }
 

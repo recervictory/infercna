@@ -16,6 +16,21 @@ cnaSignal = function(cna, gene.quantile = NULL, cell.quantile.for.genes = NULL, 
         colMeans(sqmat)
     }
 
+    split_by_sample_names = function(x,
+                                 samples = NULL,
+                                 sep = "-|_",
+                                 pos = 1,
+                                 max.nchar = NULL,
+                                 replace = NULL) {
+
+    if (is.null(samples)) samples = unique_sample_names(x,
+                                                        sep = sep,
+                                                        pos = pos,
+                                                        max.nchar = max.nchar,
+                                                        replace = replace)
+    split_by_substring(x, pattern = samples)
+    }
+
     if (is.null(gene.quantile)) {
         return(.cnaSignal(cna))
     }
@@ -34,7 +49,7 @@ cnaSignal = function(cna, gene.quantile = NULL, cell.quantile.for.genes = NULL, 
     }
 
     if (is.character(samples)) {
-        samples = scalop::split_by_sample_names(colnames(cna), samples = samples)
+        samples = split_by_sample_names(colnames(cna), samples = samples)
         samples = samples[lengths(samples) != 0]
     }
 
